@@ -17,7 +17,7 @@ def safely_get_value(
     default: Union[T, None] = None
 ) -> Union[Any, T]:
     """
-    Function: safely_get_value
+    Function: safely_get_value.
     Takes a dictionary, a key, and an optional default value as
     arguments and returns the value associated with the key.
     If the key is not found in the dictionary, the default value

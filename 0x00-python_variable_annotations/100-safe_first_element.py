@@ -2,7 +2,8 @@
 
 """
 Module: 100-safe_first_element
-Contains a duck-typed function `safe_first_element` that safely retrieves the first element from a sequence.
+Contains a duck-typed function `safe_first_element` that safely
+retrieves the first element from a sequence.
 """
 
 from typing import Sequence, Any, Union

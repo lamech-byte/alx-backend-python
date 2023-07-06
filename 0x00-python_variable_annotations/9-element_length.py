@@ -2,8 +2,10 @@
 
 """
 Module: 9-element_length
-Contains a type-annotated function `element_length` that takes a list as an argument.
-The function returns a list of tuples, where each tuple contains an element from the input list and its length.
+Contains a type-annotated function `element_length` that takes a
+list as an argument.
+The function returns a list of tuples, where each tuple contains
+an element from the input list and its length.
 """
 
 from typing import Iterable, Sequence, List, Tuple

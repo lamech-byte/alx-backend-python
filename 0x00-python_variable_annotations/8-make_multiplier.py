@@ -2,7 +2,8 @@
 
 """
 Module: 8-make_multiplier
-Contains a type-annotated function `make_multiplier` that takes a float as an argument and returns a function.
+Contains a type-annotated function `make_multiplier` that
+takes a float as an argument and returns a function.
 The returned function multiplies a float by the given multiplier.
 """
 

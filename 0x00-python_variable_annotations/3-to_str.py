@@ -2,7 +2,8 @@
 
 """
 Module: 3-to_str
-Contains a type-annotated function `to_str` that takes a float as an argument and returns its string representation.
+Contains a type-annotated function `to_str` that takes a float as an argument
+and returns its string representation.
 """
 
 

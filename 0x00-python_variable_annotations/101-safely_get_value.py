@@ -2,7 +2,8 @@
 
 """
 Module: 101-safely_get_value
-Contains a type-annotated function `safely_get_value` that safely retrieves a value from a dictionary.
+Contains a type-annotated function `safely_get_value` that safely
+retrieves a value from a dictionary.
 """
 
 from typing import Mapping, Any, TypeVar, Union

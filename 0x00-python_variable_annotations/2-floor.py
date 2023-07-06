@@ -2,7 +2,8 @@
 
 """
 Module: 2-floor
-Contains a type-annotated function `floor` that takes a float as an argument and returns its floor as an integer.
+Contains a type-annotated function `floor` that takes a float as an argument
+and returns its floor as an integer.
 """
 
 import math

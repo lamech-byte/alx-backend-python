@@ -2,7 +2,8 @@
 
 """
 Module: 1-concat
-Contains a type-annotated function `concat` that takes two strings as arguments and returns their concatenated string.
+Contains a type-annotated function `concat` that takes two strings as arguments
+and returns their concatenated string.
 """
 
 

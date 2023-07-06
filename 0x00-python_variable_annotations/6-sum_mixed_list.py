@@ -2,7 +2,8 @@
 
 """
 Module: 6-sum_mixed_list
-Contains a type-annotated function `sum_mixed_list` that takes a list of integers and floats and returns their sum as a float.
+Contains a type-annotated function `sum_mixed_list` that takes
+a list of integers and floats and returns their sum as a float.
 """
 
 from typing import List, Union

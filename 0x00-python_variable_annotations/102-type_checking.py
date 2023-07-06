@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from typing import List
 
 def zoom_array(lst: List[int], factor: int = 2) -> List[int]:

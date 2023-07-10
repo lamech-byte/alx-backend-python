@@ -5,6 +5,7 @@ This module contains a measure_time function to
 """
 
 import time
+import asyncio
 from typing import Callable
 
 wait_n = __import__('1-concurrent_coroutines').wait_n

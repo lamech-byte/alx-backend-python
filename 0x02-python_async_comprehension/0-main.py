@@ -6,12 +6,11 @@ async_generator = __import__('0-async_generator').async_generator
 
 
 async def print_yielded_values():
-    """
-    Prints the values yielded by async_generator.
-    """
     result = []
     async for i in async_generator():
         result.append(i)
     print(result)
 
-asyncio.run(print_yielded_values())
+loop = asyncio.get_event_loop()
+task = asyncio.ensure_future(print_yielded_values())
+loop.run_until_complete(task)

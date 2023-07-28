@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Unit tests for utils.access_nested_map"""
+"""Unit tests for utils.access_nested_map and utils.get_json"""
 import unittest
 from parameterized import parameterized
 from unittest.mock import patch, Mock
-from utils import access_nested_map, get_json, memoize
+from utils import access_nested_map, get_json
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -32,7 +32,7 @@ class TestAccessNestedMap(unittest.TestCase):
 
 
 class TestGetJson(unittest.TestCase):
-    """Test class for get_json function"""
+    """Test class for utils.get_json function"""
 
     @parameterized.expand([
         ("http://example.com", {"payload": True}),
@@ -48,10 +48,10 @@ class TestGetJson(unittest.TestCase):
         # Call the get_json function with the test URL
         result = get_json(test_url)
 
-        # Assert that the mocked requests.get method with the test URL
+        # Assert that the mocked requests.get method was called exactly once
         mock_get.assert_called_once_with(test_url)
 
-        # Assert that the output of get_json is equal to the test_payload
+        # Assert that the output of get_json is equal to the expected
         self.assertEqual(result, test_payload)
 
 
@@ -90,3 +90,7 @@ class TestMemoize(unittest.TestCase):
         # Assert that the results of both calls are the same
         self.assertEqual(result1, 42)
         self.assertEqual(result2, 42)
+
+
+if __name__ == '__main__':
+    unittest.main()

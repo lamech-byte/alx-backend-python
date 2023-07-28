@@ -75,7 +75,7 @@ class TestMemoize(unittest.TestCase):
     @patch.object(TestClass, 'a_method')
     def test_memoize(self, mock_a_method):
         """Test the memoize decorator"""
-        # Configure the mock_a_method to return a specific value when called
+        # Configure the mock_a_method to return a specific value
         mock_a_method.return_value = 42
 
         # Create an instance of TestClass
@@ -88,6 +88,6 @@ class TestMemoize(unittest.TestCase):
         # Assert that the mock_a_method was called exactly once
         mock_a_method.assert_called_once()
 
-        # Assert that the results of both calls are the same (memoized result)
+        # Assert that the results of both calls are the same
         self.assertEqual(result1, 42)
         self.assertEqual(result2, 42)

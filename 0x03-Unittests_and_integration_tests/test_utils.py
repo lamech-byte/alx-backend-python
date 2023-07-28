@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Unit tests for utils.access_nested_map and utils.get_json"""
+"""Unit tests for utils.access_nested_map, utils.get_json, and utils.memoize"""
 import unittest
 from parameterized import parameterized
 from unittest.mock import patch, Mock
@@ -8,8 +8,6 @@ from client import GithubOrgClient
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    """Test class for access_nested_map function"""
-
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
@@ -23,9 +21,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ({}, ("a",), KeyError),
         ({"a": 1}, ("a", "b"), KeyError)
     ])
-    def test_access_nested_map_exception(
-        self, nested_map, path, expected_exception
-    ):
+    def test_access_nested_map_exception(self, nested_map, path, expected_exception):
         """Test access_nested_map function for KeyError"""
         with self.assertRaises(expected_exception) as context:
             access_nested_map(nested_map, path)
@@ -33,16 +29,14 @@ class TestAccessNestedMap(unittest.TestCase):
 
 
 class TestGetJson(unittest.TestCase):
-    """Test class for utils.get_json function"""
-
     @parameterized.expand([
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False})
     ])
-    @patch('utils.requests.get')
+    @patch('client.requests.get')
     def test_get_json(self, test_url, test_payload, mock_get):
         """Test get_json function"""
-        # Configure the Mock object to return test_payload when json()
+        # Configure the Mock object to return test_payload when json() is called
         mock_get.return_value = Mock()
         mock_get.return_value.json.return_value = test_payload
 
@@ -52,7 +46,7 @@ class TestGetJson(unittest.TestCase):
         # Assert that the mocked requests.get method was called exactly once
         mock_get.assert_called_once_with(test_url)
 
-        # Assert that the output of get_json is equal to the expected
+        # Assert that the output of get_json is equal to the expected test_payload
         self.assertEqual(result, test_payload)
 
 
@@ -70,12 +64,10 @@ class TestClass:
 
 
 class TestMemoize(unittest.TestCase):
-    """Test class for utils.memoize decorator"""
-
     @patch.object(TestClass, 'a_method')
     def test_memoize(self, mock_a_method):
         """Test the memoize decorator"""
-        # Configure the mock_a_method to return a specific value
+        # Configure the mock_a_method to return a specific value when called
         mock_a_method.return_value = 42
 
         # Create an instance of TestClass
@@ -88,7 +80,7 @@ class TestMemoize(unittest.TestCase):
         # Assert that the mock_a_method was called exactly once
         mock_a_method.assert_called_once()
 
-        # Assert that the results of both calls are the same
+        # Assert that the results of both calls are the same (memoized result)
         self.assertEqual(result1, 42)
         self.assertEqual(result2, 42)
 
@@ -111,7 +103,9 @@ class TestGithubOrgClient(unittest.TestCase):
         result = client.org
 
         # Assert that get_json was called once with the correct argument
-        mock_get_json.assert_called_once_with(f"https://api.github.com/orgs/{org_name}")
+        mock_get_json.assert_called_once_with(
+            f"https://api.github.com/orgs/{org_name}"
+        )
 
         # Assert that the result is equal to the expected_result
         self.assertEqual(result, expected_result)

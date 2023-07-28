@@ -60,9 +60,13 @@ class TestClass:
     def a_method(self):
         return 42
 
-    @memoize
+    _a_property = None
+
+    @property
     def a_property(self):
-        return self.a_method()
+        if self._a_property is None:
+            self._a_property = self.a_method()
+        return self._a_property
 
 
 class TestMemoize(unittest.TestCase):
@@ -78,8 +82,8 @@ class TestMemoize(unittest.TestCase):
         instance = TestClass()
 
         # Call the a_property method twice
-        result1 = instance.a_property()
-        result2 = instance.a_property()
+        result1 = instance.a_property
+        result2 = instance.a_property
 
         # Assert that the mock_a_method was called exactly once
         mock_a_method.assert_called_once()

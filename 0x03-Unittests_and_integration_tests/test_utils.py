@@ -118,11 +118,11 @@ class TestGithubOrgClient(unittest.TestCase):
         ("google", {"payload": True}),
         ("abc", {"payload": False})
     ])
-    @patch('client.GithubOrgClient.get_json')  # Patch get_json method
-    def test_org(self, org_name, expected_result, mock_get_json):
+    @patch('requests.get')  # Patch requests.get method
+    def test_org(self, org_name, expected_result, mock_get):
         """Test GithubOrgClient.org method"""
-        # Configure the mock_get_json to return the expected result
-        mock_get_json.return_value = expected_result
+        # Configure the mock_get to return the expected result
+        mock_get.return_value.json.return_value = expected_result
 
         # Create an instance of GithubOrgClient with the org_name
         client = GithubOrgClient(org_name)
@@ -131,7 +131,7 @@ class TestGithubOrgClient(unittest.TestCase):
         result = client.org
 
         # Assert that get_json was called once with the correct argument
-        mock_get_json.assert_called_once_with(
+        mock_get.assert_called_once_with(
             f"https://api.github.com/orgs/{org_name}"
         )
 

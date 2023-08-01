@@ -22,7 +22,6 @@ class GithubOrgClient:
         """Init method of GithubOrgClient"""
         self._org_name = org_name
 
-    @property
     @memoize
     def org(self) -> Dict:
         """Memoize org"""

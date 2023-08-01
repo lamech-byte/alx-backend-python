@@ -30,7 +30,7 @@ class TestGithubOrgClient(unittest.TestCase):
     # Create an instance of GithubOrgClient
     client = GithubOrgClient(org_name)
 
-    # Mock the _public_repos_url property
+    # Mock the _public_repos_url property.
     with patch(
         'client.GithubOrgClient._public_repos_url',
         new_callable=PropertyMock

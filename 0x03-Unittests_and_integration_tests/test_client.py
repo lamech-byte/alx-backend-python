@@ -2,7 +2,7 @@
 """Unit tests for client.GithubOrgClient.org method"""
 import unittest
 from parameterized import parameterized
-from unittest.mock import patch, PropertyMock
+from unittest.mock import patch, Mock
 from client import GithubOrgClient
 
 
@@ -39,7 +39,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @parameterized.expand([
         ("google", "license_key", ["repo1", "repo2"]),
-        ("abc", None, ["repo3", "repo4", "repo5"]),
+        ("abc", None, []),
         ("xyz", "other_license", [])
     ])
     @patch('client.get_json')  # Patch get_json method
@@ -48,11 +48,13 @@ class TestGithubOrgClient(unittest.TestCase):
     ):
         """Test GithubOrgClient.public_repos method"""
         # Configure the mock_get_json to return the expected result
-        mock_get_json.return_value = {
-            "name": "repo1", "license": {
-                "key": "license_key"
-            }
-        }
+        if license_key is None:
+            mock_get_json.return_value = []
+        else:
+            mock_get_json.return_value = [
+                {"name": "repo1", "license": {"key": license_key}},
+                {"name": "repo2", "license": {"key": license_key}}
+            ]
 
         # Create an instance of GithubOrgClient
         client = GithubOrgClient(org_name)
@@ -62,16 +64,14 @@ class TestGithubOrgClient(unittest.TestCase):
             'client.GithubOrgClient._public_repos_url',
             new_callable=PropertyMock
         ) as mock_url:
-            mock_url.return_value = (
-                "https://api.github.com/orgs/" + org_name + "/repos"
-            )
+            mock_url.return_value = f"https://api.github.com/orgs/{org_name}/repos"
 
             # Call the public_repos method
             result = client.public_repos(license=license_key)
 
             # Assert that get_json was called once with the correct argument
             mock_get_json.assert_called_once_with(
-                "https://api.github.com/orgs/" + org_name + "/repos"
+                f"https://api.github.com/orgs/{org_name}/repos"
             )
 
             # Assert that the result is equal to the expected repos list

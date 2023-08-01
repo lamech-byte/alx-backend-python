@@ -7,9 +7,18 @@ from client import GithubOrgClient
 
 
 class TestGithubOrgClient(unittest.TestCase):
-    # Existing test methods
+    """Test class for GithubOrgClient"""
     @parameterized.expand([
-        # ...
+        ("google",),   # Add more test cases if needed
+        ("abc",),
+        ("xyz",),
+    ])
+    def test_org(self, org_name):
+        """Test the GithubOrgClient.org property"""
+        # Test implementation...
+    @parameterized.expand([
+        ("google", "license_key", ['repo1', 'repo2']),
+        ("abc", None, []),
         ("xyz", "other_license", []),
     ])
     @patch('client.get_json')  # Patch get_json method

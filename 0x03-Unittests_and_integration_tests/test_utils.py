@@ -55,6 +55,19 @@ class TestGetJson(unittest.TestCase):
         self.assertEqual(result, test_payload)
 
 
+class TestClass:
+    def a_method(self):
+        return 42
+
+    _a_property = None
+
+    @property
+    def a_property(self):
+        if self._a_property is None:
+            self._a_property = self.a_method()
+        return self._a_property
+
+
 class TestMemoize(unittest.TestCase):
     """Test class for memoize decorator"""
 
@@ -77,19 +90,6 @@ class TestMemoize(unittest.TestCase):
         # Assert that the results of both calls are the same
         self.assertEqual(result1, 42)
         self.assertEqual(result2, 42)
-
-
-class TestClass:
-    def a_method(self):
-        return 42
-
-    _a_property = None
-
-    @property
-    def a_property(self):
-        if self._a_property is None:
-            self._a_property = self.a_method()
-        return self._a_property
 
 
 if __name__ == '__main__':

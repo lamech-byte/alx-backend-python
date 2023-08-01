@@ -24,7 +24,7 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_get_json.return_value = [
                 {"name": "repo1", "license": {"key": license_key}},
                 {"name": "repo2", "license": {"key": license_key}}
-            ]  
+            ]
     # Create an instance of GithubOrgClient
     client = GithubOrgClient(org_name)
 

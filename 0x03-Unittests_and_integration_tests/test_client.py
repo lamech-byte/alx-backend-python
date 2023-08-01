@@ -48,16 +48,23 @@ class TestGithubOrgClient(unittest.TestCase):
     ):
         """Test GithubOrgClient.public_repos method"""
         # Configure the mock_get_json to return the expected result
-        mock_get_json.return_value = {"name": "repo1", "license": {"key": "license_key"}}
+        mock_get_json.return_value = {
+            "name": "repo1", "license": {
+                "key": "license_key"
+                                        }
+        }
 
         # Create an instance of GithubOrgClient
         client = GithubOrgClient(org_name)
 
         # Mock the _public_repos_url property
         with patch(
-            'client.GithubOrgClient._public_repos_url', new_callable=PropertyMock
+            'client.GithubOrgClient._public_repos_url',
+            new_callable=PropertyMock
         ) as mock_url:
-            mock_url.return_value = f"https://api.github.com/orgs/{org_name}/repos"
+            mock_url.return_value = f"https://api.github.com/orgs/{
+                org_name
+            }/repos"
 
             # Call the public_repos method
             result = client.public_repos(license=license_key)

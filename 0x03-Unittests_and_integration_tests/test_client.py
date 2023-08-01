@@ -1,41 +1,53 @@
 #!/usr/bin/env python3
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
+from parameterized import parameterized
+
 from client import GithubOrgClient
 
 
 class TestGithubOrgClient(unittest.TestCase):
-    """Test class for GithubOrgClient"""
-
-    def test_org(self):
+    @parameterized.expand([
+        ("google",),
+        ("abc",),
+    ])
+    @patch('client.get_json')
+    def test_org(self, org_name, mock_get_json):
         """Test GithubOrgClient.org method"""
-        org_names = ["google", "abc"]
-        expected_urls = [
-            "https://api.github.com/orgs/google/repos",
-            "https://api.github.com/orgs/abc/repos",
-        ]
+        # Configure the mock to return a known payload for the org
+        mock_get_json.return_value = {"payload": True}
 
-        for i in range(len(org_names)):
-            org_name = org_names[i]
-            expected_url = expected_urls[i]
+        # Create an instance of GithubOrgClient
+        client = GithubOrgClient(org_name)
 
-            # Patch get_json and return the expected URL
-            with patch('client.get_json') as mock_get_json:
-                mock_get_json.return_value = {"repos_url": expected_url}
+        # Access the org property without calling it
+        result = client.org
 
-                # Create an instance of GithubOrgClient
-                client = GithubOrgClient(org_name)
+        # Assert that the result is not None
+        self.assertIsNotNone(result)
 
-                # Call the org method
-                result = client.org()
+        # Assert that get_json was called with the correct URL
+        expected_url = f"https://api.github.com/orgs/{org_name}"
+        mock_get_json.assert_called_once_with(expected_url)
 
-                # Assert that get_json was called once
-                mock_get_json.assert_called_once_with(
-                    f"https://api.github.com/orgs/{org_name}"
-                )
+    @parameterized.expand([
+        ("google", "https://api.github.com/orgs/google/repos"),
+        ("abc", "https://api.github.com/orgs/abc/repos"),
+    ])
+    @patch('client.get_json')
+    def test_public_repos_url(self, org_name, expected_url, mock_get_json):
+        """Test GithubOrgClient._public_repos_url property"""
+        # Configure the mock to return a known payload for the org
+        mock_get_json.return_value = {"repos_url": expected_url}
 
-                # Assert that the result is the same as the expected URL
-                self.assertEqual(result, expected_url)
+        # Create an instance of GithubOrgClient
+        client = GithubOrgClient(org_name)
+
+        # Access the _public_repos_url property
+        result = client._public_repos_url
+
+        # Assert that the result matches the expected URL
+        self.assertEqual(result, expected_url)
 
 
 if __name__ == '__main__':

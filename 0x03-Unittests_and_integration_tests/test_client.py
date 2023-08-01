@@ -8,25 +8,25 @@ from client import GithubOrgClient
 
 class TestGithubOrgClient(unittest.TestCase):
     # Existing test methods
-
-@parameterized.expand([
-    # ...
-    ("xyz", "other_license", []),
-])
-@patch('client.get_json')  # Patch get_json method
-def test_public_repos(
-    self, org_name, license_key, expected_repos, mock_get_json
-):
-    """Test GithubOrgClient.public_repos method"""
-    # Configure the mock_get_json to return the expected result
-    if license_key is None or license_key == "other_license":
-        mock_get_json.return_value = []
-    else:
-        mock_get_json.return_value = [
-            {"name": "repo1", "license": {"key": license_key}},
-            {"name": "repo2", "license": {"key": license_key}}
-        ]
-
+    
+    @parameterized.expand([
+        # ...
+        ("xyz", "other_license", []),
+    ])
+    @patch('client.get_json')  # Patch get_json method
+    def test_public_repos(
+        self, org_name, license_key, expected_repos, mock_get_json
+    ):
+        """Test GithubOrgClient.public_repos method"""
+        # Configure the mock_get_json to return the expected result
+        if license_key is None or license_key == "other_license":
+            mock_get_json.return_value = []
+        else:
+            mock_get_json.return_value = [
+                {"name": "repo1", "license": {"key": license_key}},
+                {"name": "repo2", "license": {"key": license_key}}
+            ]
+            
     # Create an instance of GithubOrgClient
     client = GithubOrgClient(org_name)
 

@@ -62,14 +62,16 @@ class TestGithubOrgClient(unittest.TestCase):
             'client.GithubOrgClient._public_repos_url',
             new_callable=PropertyMock
         ) as mock_url:
-            mock_url.return_value = f"https://api.github.com/orgs/{org_name}/repos"
+            mock_url.return_value = (
+                "https://api.github.com/orgs/" + org_name + "/repos"
+            )
 
             # Call the public_repos method
             result = client.public_repos(license=license_key)
 
             # Assert that get_json was called once with the correct argument
             mock_get_json.assert_called_once_with(
-                f"https://api.github.com/orgs/{org_name}/repos"
+                "https://api.github.com/orgs/" + org_name + "/repos"
             )
 
             # Assert that the result is equal to the expected repos list

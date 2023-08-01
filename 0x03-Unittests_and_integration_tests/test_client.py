@@ -2,7 +2,7 @@
 """Unit tests for client.GithubOrgClient.org method"""
 import unittest
 from parameterized import parameterized
-from unittest.mock import patch, Mock
+from unittest.mock import patch, PropertyMock
 from client import GithubOrgClient
 
 

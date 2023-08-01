@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""A github org client"""
+"""A github org client
+"""
 from typing import (
     List,
     Dict,
@@ -13,8 +14,8 @@ from utils import (
 
 
 class GithubOrgClient:
-    """A Github org client"""
-
+    """A Githib org client
+    """
     ORG_URL = "https://api.github.com/orgs/{org}"
 
     def __init__(self, org_name: str) -> None:

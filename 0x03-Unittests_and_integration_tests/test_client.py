@@ -5,6 +5,7 @@ from parameterized import parameterized
 from unittest.mock import patch, Mock, PropertyMock
 from client import GithubOrgClient
 
+
 class TestGithubOrgClient(unittest.TestCase):
     """Test class for GithubOrgClient"""
 
@@ -61,10 +62,11 @@ class TestGithubOrgClient(unittest.TestCase):
             # Assert that the result is equal to the expected repos list
             self.assertEqual(result, expected_repos)
             
-    def test_public_repos_url(self):
-        """Test GithubOrgClient._public_repos_url property"""
-        # Test implementation...
-        pass
+            def test_public_repos_url(self):
+                """Test GithubOrgClient._public_repos_url property"""
+                # Test implementation...
+pass
+
 
 if __name__ == '__main__':
     unittest.main()

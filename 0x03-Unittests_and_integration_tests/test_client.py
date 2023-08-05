@@ -17,9 +17,8 @@ class TestGithubOrgClient(unittest.TestCase):
     def test_org(self, org_name):
         """Test the GithubOrgClient.org property"""
         # Test implementation...
-        client = GithubOrgClient(org_name)
-        # You can now use 'client' in your test implementation
-        
+        GithubOrgClient(org_name)  # You can now use 'client' in your test implementation
+
     @parameterized.expand([
         ("google", "license_key", ['repo1', 'repo2']),
         ("abc", None, []),
@@ -40,7 +39,7 @@ class TestGithubOrgClient(unittest.TestCase):
             ]
 
         # Create an instance of GithubOrgClient
-        client = GithubOrgClient(org_name)
+        GithubOrgClient(org_name)
 
         # Mock the _public_repos_url property.
         with patch(
@@ -52,7 +51,7 @@ class TestGithubOrgClient(unittest.TestCase):
             )
 
             # Call the public_repos method
-            result = client.public_repos(license=license_key)
+            result = GithubOrgClient(org_name).public_repos(license=license_key)
 
             # Assert that get_json was called once with the correct argument
             mock_get_json.assert_called_once_with(

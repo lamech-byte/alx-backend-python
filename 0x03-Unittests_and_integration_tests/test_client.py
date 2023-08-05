@@ -5,7 +5,6 @@ from parameterized import parameterized
 from unittest.mock import patch, Mock, PropertyMock
 from client import GithubOrgClient
 
-
 class TestGithubOrgClient(unittest.TestCase):
     """Test class for GithubOrgClient"""
 
@@ -20,28 +19,28 @@ class TestGithubOrgClient(unittest.TestCase):
         client = GithubOrgClient(org_name)
         # You can now use 'client' in your test implementation
         
-        @parameterized.expand([
-            "google", "license_key", ['repo1', 'repo2']),
-            ("abc", None, []),
-            ("xyz", "other_license", []),
-        ])
-        @patch('client.get_json')  # Patch get_json method
-        
-        def test_public_repos(
-            self, org_name, license_key, expected_repos, mock_get_json
-        ):
-            """Test GithubOrgClient.public_repos method"""
-            # Configure the mock_get_json to return the expected result
-            if license_key is None or license_key == "other_license":
-                mock_get_json.return_value = []
-            else:
-                mock_get_json.return_value = [
-                    {"name": "repo1", "license": {"key": license_key}},
-                    {"name": "repo2", "license": {"key": license_key}}
+    @parameterized.expand([
+        ("google", "license_key", ['repo1', 'repo2']),
+        ("abc", None, []),
+        ("xyz", "other_license", []),
+    ])
+    @patch('client.get_json')  # Patch get_json method
+    def test_public_repos(
+        self, org_name, license_key, expected_repos, mock_get_json
+    ):
+        """Test GithubOrgClient.public_repos method"""
+        # Configure the mock_get_json to return the expected result
+        if license_key is None or license_key == "other_license":
+            mock_get_json.return_value = []
+        else:
+            mock_get_json.return_value = [
+                {"name": "repo1", "license": {"key": license_key}},
+                {"name": "repo2", "license": {"key": license_key}}
             ]
-                # Create an instance of GithubOrgClient
+
+        # Create an instance of GithubOrgClient
         client = GithubOrgClient(org_name)
-        
+
         # Mock the _public_repos_url property.
         with patch(
             'client.GithubOrgClient._public_repos_url',
@@ -65,8 +64,7 @@ class TestGithubOrgClient(unittest.TestCase):
     def test_public_repos_url(self):
         """Test GithubOrgClient._public_repos_url property"""
         # Test implementation...
-pass
-
+        pass
 
 if __name__ == '__main__':
     unittest.main()

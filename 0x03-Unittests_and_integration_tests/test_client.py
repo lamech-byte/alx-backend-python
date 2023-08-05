@@ -65,7 +65,6 @@ class TestGithubOrgClient(unittest.TestCase):
     def test_public_repos_url(self):
         """Test GithubOrgClient._public_repos_url property"""
         # Test implementation...
-        pass
 
 
 if __name__ == '__main__':

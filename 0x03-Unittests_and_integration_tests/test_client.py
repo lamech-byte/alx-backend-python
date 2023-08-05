@@ -66,5 +66,6 @@ class TestGithubOrgClient(unittest.TestCase):
         # Test implementation...
         pass
 
+
 if __name__ == '__main__':
     unittest.main()

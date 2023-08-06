@@ -16,7 +16,6 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     def test_org(self, org_name):
         """Test the GithubOrgClient.org property"""
-        # Test implementation...
         GithubOrgClient(org_name)  # You can now use 'client'
 
     @parameterized.expand([
@@ -59,6 +58,16 @@ class TestGithubOrgClient(unittest.TestCase):
 
             # Assert that the result is equal to the expected repos list
             self.assertEqual(result, expected_repos)
+
+    @parameterized.expand([
+        ("google", True),
+        ("abc", False),
+        ("xyz", False),
+    ])
+    def test_has_license(self, repo_name, expected_result):
+        """Test the GithubOrgClient.has_license method"""
+        # Implement the test logic...
+        pass
 
     def test_public_repos_url(self):
         """Test GithubOrgClient._public_repos_url property"""

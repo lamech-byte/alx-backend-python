@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Unit tests for client.GithubOrgClient.org method"""
 import unittest
-from parameterized import parameterized
 from unittest.mock import patch, Mock, PropertyMock
+from parameterized import parameterized
 from client import GithubOrgClient
 
 
@@ -37,9 +37,6 @@ class TestGithubOrgClient(unittest.TestCase):
                 {"name": "repo1", "license": {"key": license_key}},
                 {"name": "repo2", "license": {"key": license_key}}
             ]
-
-        # Create an instance of GithubOrgClient
-        GithubOrgClient(org_name)
 
         # Mock the _public_repos_url property.
         with patch(
